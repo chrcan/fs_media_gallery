@@ -8,6 +8,7 @@ use Doctrine\DBAL\Exception;
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
@@ -80,6 +81,7 @@ final class MigratePlugins implements UpgradeWizardInterface
     {
         try {
             $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
+            $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
             return $queryBuilder
                 ->count('uid')
                 ->from('tt_content')
@@ -98,6 +100,7 @@ final class MigratePlugins implements UpgradeWizardInterface
     {
         try {
             $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
+            $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
             return $queryBuilder
                 ->select('uid', 'pi_flexform')
                 ->from('tt_content')
