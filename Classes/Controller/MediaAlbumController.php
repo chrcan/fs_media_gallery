@@ -419,7 +419,7 @@ class MediaAlbumController extends ActionController
     {
         if (!empty($GLOBALS['TSFE'])) {
             $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction($GLOBALS['TYPO3_REQUEST'], $message);
-            throw new ImmediateResponseException($response);
+            throw new ImmediateResponseException($response, 2946443965);
         }
 
         return $this->htmlResponse($message);
