@@ -117,7 +117,7 @@ class PageLayoutView
 
             $this->summaryData[] = [
                 $this->getLanguageService()->sL(self::LLPATH . 'flexforms.mediagallery.mediaAlbum') .
-                    '<br />',
+                '<br />',
                 implode(', ', $albums),
             ];
         }
@@ -160,7 +160,7 @@ class PageLayoutView
 
             $this->summaryData[] = [
                 $this->getLanguageService()->sL(self::LLPATH . 'flexforms.mediagallery.mediaAlbumsUids') .
-                    '<br />' . $filterMode,
+                '<br />' . $filterMode,
                 implode(', ', $albums),
             ];
         }
@@ -186,9 +186,9 @@ class PageLayoutView
 
             foreach ($rawPagesRecords as $page) {
                 $pagesOut[] = htmlspecialchars(BackendUtilityCore::getRecordTitle(
-                    'pages',
-                    $page
-                )) . ' (' . $page['uid'] . ')';
+                        'pages',
+                        $page
+                    )) . ' (' . $page['uid'] . ')';
             }
 
             $recursiveLevel = (int)$this->getFieldFromFlexform('settings.recursive');
