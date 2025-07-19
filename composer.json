@@ -22,7 +22,7 @@
 	"require": {
 		"ext-mbstring": "*",
 		"typo3/cms-core": "^13.0",
-		"georgringer/numbered-pagination": "^99"
+		"georgringer/numbered-pagination": "^2.1"
 	},
 	"autoload": {
 		"psr-4": {
