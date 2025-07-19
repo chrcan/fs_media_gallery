@@ -194,7 +194,7 @@ class MediaAlbumController extends ActionController
             /** @var MediaAlbum $mediaAlbum */
             $mediaAlbum = $this->mediaAlbumRepository->findByUid($mediaAlbumId);
             if (!$mediaAlbum) {
-                return $this->pageNotFound(LocalizationUtility::translate('no_album_found', 'fs_media_gallery'));
+                return $this->pageNotFound(LocalizationUtility::translate('no_album_found', 'FsMediaGallery'));
             }
         }
 
@@ -288,7 +288,7 @@ class MediaAlbumController extends ActionController
             // if an album is given, display it
             $mediaAlbum = $this->mediaAlbumRepository->findByUid($mediaAlbum);
             if (!$mediaAlbum) {
-                return $this->pageNotFound(LocalizationUtility::translate('no_album_found', 'fs_media_gallery'));
+                return $this->pageNotFound(LocalizationUtility::translate('no_album_found', 'FsMediaGallery'));
             }
             $this->view->assign('displayMode', 'album');
             $this->view->assign('mediaAlbum', $mediaAlbum);
@@ -375,7 +375,7 @@ class MediaAlbumController extends ActionController
 
         [$previousAsset, $mediaAsset, $nextAsset] = $mediaAlbum->getPreviousCurrentAndNext($mediaAssetUid);
         if (!$mediaAsset) {
-            $message = LocalizationUtility::translate('asset_not_found', 'fs_media_gallery');
+            $message = LocalizationUtility::translate('asset_not_found', 'FsMediaGallery');
             return $this->pageNotFound((empty($message) ? 'Asset not found.' : $message));
         }
         $this->view->assign('previousAsset', $previousAsset);
