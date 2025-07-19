@@ -6,10 +6,9 @@ use MiniFranske\FsMediaGallery\Controller\MediaAlbumController;
 use MiniFranske\FsMediaGallery\Hooks\ProcessDatamapHook;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-$boot = function ($packageKey): void
-{
+(static function (): void {
     ExtensionUtility::configurePlugin(
-        $packageKey,
+        'FsMediaGallery',
         'NestedList',
         [
             MediaAlbumController::class => 'nestedList,showAsset',
@@ -19,7 +18,7 @@ $boot = function ($packageKey): void
     );
 
     ExtensionUtility::configurePlugin(
-        $packageKey,
+        'FsMediaGallery',
         'FlatList',
         [
             MediaAlbumController::class => 'flatList,showAsset',
@@ -29,7 +28,7 @@ $boot = function ($packageKey): void
     );
 
     ExtensionUtility::configurePlugin(
-        $packageKey,
+        'FsMediaGallery',
         'ShowAlbumByConfig',
         [
             MediaAlbumController::class => 'showAlbumByConfig,showAsset',
@@ -39,7 +38,7 @@ $boot = function ($packageKey): void
     );
 
     ExtensionUtility::configurePlugin(
-        $packageKey,
+        'FsMediaGallery',
         'ShowAlbum',
         [
             MediaAlbumController::class => 'showAlbum,showAsset',
@@ -49,7 +48,7 @@ $boot = function ($packageKey): void
     );
 
     ExtensionUtility::configurePlugin(
-        $packageKey,
+        'FsMediaGallery',
         'RandomAsset',
         [
             MediaAlbumController::class => 'randomAsset,showAsset',
@@ -67,6 +66,4 @@ $boot = function ($packageKey): void
         ProcessDatamapHook::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
         ProcessDatamapHook::class;
-};
-$boot('fs_media_gallery');
-unset($boot);
+})();
