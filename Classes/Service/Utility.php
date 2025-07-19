@@ -44,6 +44,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Utility implements SingletonInterface
 {
+    public function __construct(
+        private readonly ConnectionPool $connectionPool
+    )
+    {
+    }
     /**
      * Get storage folders marked as media gallery
      *
@@ -256,7 +261,7 @@ class Utility implements SingletonInterface
 
     protected function getDatabaseConnection(string $table = 'sys_file_collection'): Connection
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+        return $this->connectionPool->getConnectionForTable($table);
     }
 
     protected function getBeUser(): ?BackendUserAuthentication

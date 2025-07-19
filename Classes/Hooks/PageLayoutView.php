@@ -34,7 +34,9 @@ class PageLayoutView
      */
     private $flexFormData = [];
 
-    public function __construct(private readonly ConnectionPool $connectionPool)
+    public function __construct(
+        private readonly ConnectionPool $connectionPool
+    )
     {
     }
 

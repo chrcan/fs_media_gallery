@@ -18,6 +18,12 @@ class SlugService
 {
     protected string $tableName = 'sys_file_collection';
     protected string $slugFieldName = 'slug';
+    public function __construct(
+        private readonly ConnectionPool $connectionPool,
+        private readonly Context $context
+    )
+    {
+    }
 
     /**
      * @return bool
@@ -30,7 +36,7 @@ class SlugService
     public function countOfSlugUpdates(): int
     {
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($this->tableName);
+        $queryBuilder = $this->connectionPool->getQueryBuilderForTable($this->tableName);
         $queryBuilder->getRestrictions()->removeAll();
         return $queryBuilder->count('uid')
             ->from($this->tableName)
@@ -51,7 +57,7 @@ class SlugService
         $databaseQueries = [];
 
         /** @var Connection $connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($this->tableName);
+        $connection = $this->connectionPool->getConnectionForTable($this->tableName);
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
         $fieldConfig = $GLOBALS['TCA'][$this->tableName]['columns'][$this->slugFieldName]['config'];
@@ -107,7 +113,7 @@ class SlugService
         $elementCount = 0;
         // Check if table 'tx_realurl_uniqalias' exists
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+        $queryBuilder = $this->connectionPool
             ->getQueryBuilderForTable('tx_realurl_uniqalias');
         $schemaManager = $queryBuilder->getConnection()->getSchemaManager();
         if ($schemaManager->tablesExist(['tx_realurl_uniqalias']) === true) {
@@ -148,7 +154,7 @@ class SlugService
                             ),
                             $queryBuilder->expr()->gte(
                                 'tx_realurl_uniqalias.expire',
-                                $queryBuilder->createNamedParameter(GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'), Connection::PARAM_INT)
+                                $queryBuilder->createNamedParameter($this->context->getPropertyFromAspect('date', 'timestamp'), Connection::PARAM_INT)
                             )
                         )
                     )
@@ -169,12 +175,12 @@ class SlugService
 
         // Check if table 'tx_realurl_uniqalias' exists
         /** @var QueryBuilder $queryBuilderForRealurl */
-        $queryBuilderForRealurl = GeneralUtility::makeInstance(ConnectionPool::class)
+        $queryBuilderForRealurl = $this->connectionPool
             ->getQueryBuilderForTable('tx_realurl_uniqalias');
         $schemaManager = $queryBuilderForRealurl->getConnection()->getSchemaManager();
         if ($schemaManager->tablesExist(['tx_realurl_uniqalias']) === true) {
             /** @var Connection $connection */
-            $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            $connection = $this->connectionPool
                 ->getConnectionForTable($this->tableName);
             $queryBuilder = $connection->createQueryBuilder();
 
@@ -217,7 +223,7 @@ class SlugService
                             ),
                             $queryBuilder->expr()->gte(
                                 'tx_realurl_uniqalias.expire',
-                                $queryBuilder->createNamedParameter(GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp'), Connection::PARAM_INT)
+                                $queryBuilder->createNamedParameter($this->context->getPropertyFromAspect('date', 'timestamp'), Connection::PARAM_INT)
                             )
                         )
                     )
