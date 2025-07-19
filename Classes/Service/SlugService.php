@@ -35,7 +35,6 @@ class SlugService
 
     public function countOfSlugUpdates(): int
     {
-        /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($this->tableName);
         $queryBuilder->getRestrictions()->removeAll();
         return $queryBuilder->count('uid')
@@ -56,7 +55,6 @@ class SlugService
     {
         $databaseQueries = [];
 
-        /** @var Connection $connection */
         $connection = $this->connectionPool->getConnectionForTable($this->tableName);
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->getRestrictions()->removeAll();
@@ -112,7 +110,6 @@ class SlugService
     {
         $elementCount = 0;
         // Check if table 'tx_realurl_uniqalias' exists
-        /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->connectionPool
             ->getQueryBuilderForTable('tx_realurl_uniqalias');
         $schemaManager = $queryBuilder->getConnection()->getSchemaManager();
@@ -174,12 +171,10 @@ class SlugService
         $databaseQueries = [];
 
         // Check if table 'tx_realurl_uniqalias' exists
-        /** @var QueryBuilder $queryBuilderForRealurl */
         $queryBuilderForRealurl = $this->connectionPool
             ->getQueryBuilderForTable('tx_realurl_uniqalias');
         $schemaManager = $queryBuilderForRealurl->getConnection()->getSchemaManager();
         if ($schemaManager->tablesExist(['tx_realurl_uniqalias']) === true) {
-            /** @var Connection $connection */
             $connection = $this->connectionPool
                 ->getConnectionForTable($this->tableName);
             $queryBuilder = $connection->createQueryBuilder();
