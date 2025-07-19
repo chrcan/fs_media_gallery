@@ -57,8 +57,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
-
-    // refresh file tree after changen in media album recored (sys_file_collection)
+    // Refresh file tree after changes in media album record (sys_file_collection)
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
         ProcessDatamapHook::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] =
