@@ -297,7 +297,7 @@ class MediaAlbum extends AbstractEntity
     /**
      * Set parentalbum
      */
-    public function setParentalbum(MediaAlbum $parentalbum)
+    public function setParentalbum(MediaAlbum $parentalbum): void
     {
         $this->parentalbum = $parentalbum;
     }
