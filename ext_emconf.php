@@ -12,7 +12,7 @@ Show your media assets from your local or remote storage as a gallery of albums.
     'version' => '5.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '13.0.0-13.4.99',
+            'typo3' => '13.4.0-13.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
