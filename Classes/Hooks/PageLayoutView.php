@@ -34,6 +34,10 @@ class PageLayoutView
      */
     private $flexFormData = [];
 
+    public function __construct(private readonly ConnectionPool $connectionPool)
+    {
+    }
+
     public function getExtensionSummary(array $params): string
     {
         /** @var \TYPO3\CMS\Backend\View\PageLayoutView $pageLayoutView */
@@ -234,6 +238,6 @@ class PageLayoutView
 
     private function getDatabaseConnection(string $table = 'sys_file_collection'): Connection
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table);
+        return $this->connectionPool->getConnectionForTable($table);
     }
 }
