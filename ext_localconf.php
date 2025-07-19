@@ -57,9 +57,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
         ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
-    ExtensionManagementUtility::addPageTSConfig(
-        '@import "EXT:fs_media_gallery/Configuration/TSConfig/Page.tsconfig"'
-    );
 
     // refresh file tree after changen in media album recored (sys_file_collection)
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
