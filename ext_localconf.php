@@ -1,11 +1,10 @@
 <?php
 
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-use MiniFranske\FsMediaGallery\Controller\MediaAlbumController;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use MiniFranske\FsMediaGallery\Hooks\ProcessDatamapHook;
+defined('TYPO3') || die('Access denied.');
 
-defined('TYPO3') || die('not TYPO3 env');
+use MiniFranske\FsMediaGallery\Controller\MediaAlbumController;
+use MiniFranske\FsMediaGallery\Hooks\ProcessDatamapHook;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 $boot = function ($packageKey): void
 {
@@ -15,6 +14,8 @@ $boot = function ($packageKey): void
         [
             MediaAlbumController::class => 'nestedList,showAsset',
         ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -23,6 +24,8 @@ $boot = function ($packageKey): void
         [
             MediaAlbumController::class => 'flatList,showAsset',
         ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -31,6 +34,8 @@ $boot = function ($packageKey): void
         [
             MediaAlbumController::class => 'showAlbumByConfig,showAsset',
         ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -39,6 +44,8 @@ $boot = function ($packageKey): void
         [
             MediaAlbumController::class => 'showAlbum,showAsset',
         ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -47,6 +54,8 @@ $boot = function ($packageKey): void
         [
             MediaAlbumController::class => 'randomAsset,showAsset',
         ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionManagementUtility::addPageTSConfig(
