@@ -29,6 +29,7 @@ namespace MiniFranske\FsMediaGallery\Domain\Repository;
  ***************************************************************/
 
 use MiniFranske\FsMediaGallery\Domain\Model\MediaAlbum;
+use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -225,58 +226,55 @@ class MediaAlbumRepository extends Repository
      * Find albums by parent album
      *
      * @param MediaAlbum|null $parentAlbum
-     * @param bool $excludeEmptyAlbums
+     * @param bool $excludeEmptyAlbums Exclude albums without assets and subalbums
      * @param string $orderBy Sort albums by: datetime|crdate|sorting
      * @param string $orderDirection Sort order: asc|desc
      * @return MediaAlbum[]
      * @throws InvalidQueryException
      */
     public function findByParentAlbum(
-        MediaAlbum $parentAlbum = null,
-        $excludeEmptyAlbums = true,
-        $orderBy = 'sorting',
-        $orderDirection = 'desc'
-    ) {
-        $excludeEmptyAlbums = filter_var($excludeEmptyAlbums, FILTER_VALIDATE_BOOLEAN);
+        ?MediaAlbum $parentAlbum = null,
+        bool $excludeEmptyAlbums = true,
+        string $orderBy = 'sorting',
+        string $orderDirection = 'desc'
+    ): array {
         $query = $this->createQuery();
-        $constraints = [];
-        $constraints[] = $query->equals('parentalbum', $parentAlbum ?: 0);
+
+        $constraints = [
+            $query->equals('parentalbum', $parentAlbum?->getUid() ?? 0),
+        ];
 
         if ($this->albumUids !== []) {
-            if ($this->useAlbumUidsAsExclude) {
-                $constraints[] = $query->logicalNot($query->in('uid', $this->albumUids));
-            } else {
-                $constraints[] = $query->in('uid', $this->albumUids);
-            }
+            $uidConstraint = $query->in('uid', $this->albumUids);
+            $constraints[] = $this->useAlbumUidsAsExclude
+                ? $query->logicalNot($uidConstraint)
+                : $uidConstraint;
         }
 
         $query->matching($query->logicalAnd(...$constraints));
         $query->setOrderings($this->getOrderingsSettings($orderBy, $orderDirection));
-        $mediaAlbums = $query->execute()->toArray();
 
-        foreach ($mediaAlbums as $key => $mediaAlbum) {
-            /** @var $mediaAlbum MediaAlbum */
-            // set allowed asset mime types
-            $mediaAlbum->setAllowedMimeTypes($this->allowedAssetMimeTypes);
-            // set assets order
-            $mediaAlbum->setAssetsOrderBy($this->assetsOrderBy);
-            $mediaAlbum->setAssetsOrderDirection($this->assetsOrderDirection);
-            $mediaAlbum->setExcludeEmptyAlbums($excludeEmptyAlbums);
+        $albums = $query->execute()->toArray();
 
-            // exclude if album is empty
+        $result = [];
+
+        foreach ($albums as $album) {
+            $album->setAllowedMimeTypes($this->allowedAssetMimeTypes);
+            $album->setAssetsOrderBy($this->assetsOrderBy);
+            $album->setAssetsOrderDirection($this->assetsOrderDirection);
+            $album->setExcludeEmptyAlbums($excludeEmptyAlbums);
+
             if (
-                $excludeEmptyAlbums
-                &&
-                $mediaAlbum->getAssetsCount() === 0
-                &&
-                (is_countable($mediaAlbum->getAlbums()) ? count($mediaAlbum->getAlbums()) : 0) === 0
+                !$excludeEmptyAlbums ||
+                $album->getAssetsCount() > 0 ||
+                count($album->getAlbums() ?? []) > 0
             ) {
-                unset($mediaAlbums[$key]);
+                $result[] = $album;
             }
         }
 
-        // Reset array keys and return albums
-        return array_values($mediaAlbums);
+        DebugUtility::debug($result);
+        return $result;
     }
 
     /**

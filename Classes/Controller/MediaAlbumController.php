@@ -34,6 +34,7 @@ use MiniFranske\FsMediaGallery\Domain\Repository\MediaAlbumRepository;
 use MiniFranske\FsMediaGallery\Pagination\ExtendedArrayPaginator;
 use MiniFranske\FsMediaGallery\Utility\TypoScriptUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -43,6 +44,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
 
@@ -181,6 +183,7 @@ class MediaAlbumController extends ActionController
      * Displays a (nested) list of albums; default/show action in fs_media_gallery <= 1.0.0
      *
      * @param int $mediaAlbum (this is not directly mapped to an object to handle 404 on our own)
+     * @throws InvalidQueryException
      */
     public function nestedListAction(int $mediaAlbum = 0): ResponseInterface
     {
@@ -224,7 +227,7 @@ class MediaAlbumController extends ActionController
         } else {
             $mediaAlbums = $this->mediaAlbumRepository->findByParentAlbum(
                 $mediaAlbum,
-                $this->settings['list']['hideEmptyAlbums'],
+                (bool)$this->settings['list']['hideEmptyAlbums'],
                 $this->settings['list']['orderBy'],
                 $this->settings['list']['orderDirection']
             );
@@ -232,10 +235,9 @@ class MediaAlbumController extends ActionController
 
         // when only 1 album skip gallery view
         if ($mediaAlbumId === null && !empty($this->settings['list']['skipListWhenOnlyOneAlbum']) && count($mediaAlbums) === 1) {
-            $mediaAlbum = $mediaAlbums[0];
             $mediaAlbums = $this->mediaAlbumRepository->findByParentAlbum(
-                $mediaAlbum,
-                $this->settings['list']['hideEmptyAlbums'],
+                $mediaAlbums[0],
+                (bool)$this->settings['list']['hideEmptyAlbums'],
                 $this->settings['list']['orderBy'],
                 $this->settings['list']['orderDirection']
             );
@@ -335,24 +337,31 @@ class MediaAlbumController extends ActionController
      *
      * @param int|null $mediaAlbum (this is not directly mapped to an object to handle 404 on our own)
      * @return ResponseInterface
+     * @throws PageNotFoundException
      */
-    public function showAlbumAction(int $mediaAlbum = null): ResponseInterface
+    public function showAlbumAction(?int $mediaAlbum = null): ResponseInterface
     {
-        $mediaAlbum = (int)$mediaAlbum ?: null;
-        if (empty($mediaAlbum)) {
-            $mediaAlbum = (int)($this->settings['mediaAlbum'] ?? 0);
+        $albumUid = $mediaAlbum ?: (int)($this->settings['mediaAlbum'] ?? 0);
+
+        if ($albumUid <= 0) {
+            // UID not found → custom 404
+            throw new PageNotFoundException('MediaAlbum UID missing', 1646232872);
         }
-        // if album uid is set through settings (typoscript or flexform) we skip the storage check
-        $respectStorage = true;
-        if ((int)($this->settings['mediaAlbum'] ?? 0) === (int)$mediaAlbum) {
-            $respectStorage = false;
+
+        $respectStorage = ($albumUid !== (int)($this->settings['mediaAlbum'] ?? 0));
+
+        $mediaAlbumObject = $this->mediaAlbumRepository->findByUid($albumUid, $respectStorage);
+
+        if (!$mediaAlbumObject instanceof MediaAlbum) {
+            // UID does not exist or access denied → explicit 404
+            throw new PageNotFoundException('MediaAlbum not found', 1646232873);
         }
-        $mediaAlbum = $this->mediaAlbumRepository->findByUid($mediaAlbum, $respectStorage);
-        $this->view->assign('mediaAlbum', $mediaAlbum);
-        $this->view->assign('showBackLink', false);
-        if ($mediaAlbum) {
-            $this->view->assign('mediaAlbumPagination', $this->getAlbumPagination($mediaAlbum));
-        }
+
+        $this->view->assignMultiple([
+            'mediaAlbum' => $mediaAlbum,
+            'mediaAlbumPagination' => $this->getAlbumPagination($mediaAlbumObject),
+            'showBackLink' => false,
+        ]);
 
         return $this->htmlResponse();
     }
