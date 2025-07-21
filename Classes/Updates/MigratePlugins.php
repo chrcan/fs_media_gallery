@@ -18,9 +18,7 @@ final class MigratePlugins implements UpgradeWizardInterface
 {
     public function __construct(
         private readonly ConnectionPool $connectionPool,
-    )
-    {
-    }
+    ) {}
 
     public function getTitle(): string
     {

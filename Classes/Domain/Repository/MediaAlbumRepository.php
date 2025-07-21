@@ -29,7 +29,6 @@ namespace MiniFranske\FsMediaGallery\Domain\Repository;
  ***************************************************************/
 
 use MiniFranske\FsMediaGallery\Domain\Model\MediaAlbum;
-use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;

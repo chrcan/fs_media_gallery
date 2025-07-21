@@ -28,7 +28,6 @@ namespace MiniFranske\FsMediaGallery\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use DateTime;
-use Exception;
 use MiniFranske\FsMediaGallery\Domain\Repository\MediaAlbumRepository;
 use TYPO3\CMS\Core\Resource\Collection\AbstractFileCollection;
 use TYPO3\CMS\Core\Resource\File;
@@ -138,7 +137,7 @@ class MediaAlbum extends AbstractEntity
     public $albumCache;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $datetime;
 
@@ -338,7 +337,7 @@ class MediaAlbum extends AbstractEntity
                     $files = $this->orderAssets($files, $this->assetsOrderBy, $this->assetsOrderDirection);
                 }
                 $this->assetCache = $files;
-            } catch (Exception) {
+            } catch (\Exception) {
                 // failing albums get disabled
                 $this->setHidden(true);
                 $this->mediaAlbumRepository->update($this);
@@ -479,7 +478,7 @@ class MediaAlbum extends AbstractEntity
     /**
      * Get datetime
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getDatetime()
     {
@@ -489,7 +488,7 @@ class MediaAlbum extends AbstractEntity
     /**
      * Set date time
      *
-     * @param DateTime $datetime datetime
+     * @param \DateTime $datetime datetime
      */
     public function setDatetime($datetime): void
     {

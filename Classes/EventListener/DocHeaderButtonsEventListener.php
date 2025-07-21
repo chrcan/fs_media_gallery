@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MiniFranske\FsMediaGallery\EventListener;
 
 use MiniFranske\FsMediaGallery\Service\AbstractBeAlbumButtons;

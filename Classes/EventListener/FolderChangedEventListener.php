@@ -55,7 +55,7 @@ final class FolderChangedEventListener
     public function __construct(
         private readonly Utility $utilityService,
         private readonly ExtensionConfiguration $extensionConfiguration
-    ){}
+    ) {}
 
     /**
      * Get sub folder structure of folder before is gets moved

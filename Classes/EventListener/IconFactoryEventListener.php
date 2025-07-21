@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace MiniFranske\FsMediaGallery\EventListener;
 
 /***************************************************************
@@ -43,7 +42,7 @@ class IconFactoryEventListener
 
     public function __construct(
         private readonly Utility $utilityService
-    ){}
+    ) {}
 
     public function buildIconForResource(
         ModifyIconForResourcePropertiesEvent $event

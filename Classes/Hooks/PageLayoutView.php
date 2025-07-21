@@ -36,9 +36,7 @@ class PageLayoutView
 
     public function __construct(
         private readonly ConnectionPool $connectionPool
-    )
-    {
-    }
+    ) {}
 
     public function getExtensionSummary(array $params): string
     {
@@ -188,9 +186,9 @@ class PageLayoutView
 
             foreach ($rawPagesRecords as $page) {
                 $pagesOut[] = htmlspecialchars(BackendUtilityCore::getRecordTitle(
-                        'pages',
-                        $page
-                    )) . ' (' . $page['uid'] . ')';
+                    'pages',
+                    $page
+                )) . ' (' . $page['uid'] . ')';
             }
 
             $recursiveLevel = (int)$this->getFieldFromFlexform('settings.recursive');

@@ -7,7 +7,6 @@ namespace MiniFranske\FsMediaGallery\Service;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -21,9 +20,7 @@ class SlugService
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly Context $context
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return bool

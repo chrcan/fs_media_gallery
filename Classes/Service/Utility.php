@@ -46,9 +46,7 @@ class Utility implements SingletonInterface
 {
     public function __construct(
         private readonly ConnectionPool $connectionPool
-    )
-    {
-    }
+    ) {}
     /**
      * Get storage folders marked as media gallery
      *
