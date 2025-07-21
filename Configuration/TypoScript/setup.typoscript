@@ -124,4 +124,3 @@ plugin.tx_fsmediagallery {
 
 # Include MediaGallery default styles
 page.includeCSS.tx-fs-media-gallery = EXT:fs_media_gallery/Resources/Public/Css/MediaAlbum.css
-

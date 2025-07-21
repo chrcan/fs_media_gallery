@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <T3DataStructure>
     <sheets>
         <general>
@@ -46,7 +47,7 @@
                                     <label>
                                         LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
                                     </label>
-                                    <value></value>
+                                    <value/>
                                 </numIndex>
                                 <numIndex index="1">
                                     <label>
@@ -92,7 +93,7 @@
                                     <label>
                                         LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
                                     </label>
-                                    <value></value>
+                                    <value/>
                                 </numIndex>
                                 <numIndex index="2" type="array">
                                     <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.0
@@ -189,7 +190,7 @@
                                     <label>
                                         LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
                                     </label>
-                                    <value></value>
+                                    <value/>
                                 </numIndex>
                                 <numIndex index="2" type="array">
                                     <label>
