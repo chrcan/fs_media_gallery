@@ -273,7 +273,6 @@ class MediaAlbumRepository extends Repository
             }
         }
 
-        DebugUtility::debug($result);
         return $result;
     }
 
