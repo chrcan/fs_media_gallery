@@ -1,0 +1,45 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
+	 xmlns:mf="http://typo3.org/ns/MiniFranske/FsMediaGallery/ViewHelpers">
+
+	<!--
+	 Displays a flattened, one-dimensional album list
+	 Theme: Bootstrap3
+	-->
+
+	<f:section name="AlbumsList">
+		<div class="albums-list">
+			<f:render partial="AlbumsPagination" contentAs="content" arguments="{pagination: mediaAlbumsPagination, mediaAlbum: mediaAlbum}">
+				<f:if condition="{mediaAlbumsPagination.paginator.paginatedItems}">
+					<f:then>
+						<div class="container-fluid">
+							<div class="row">
+								<f:for each="{mediaAlbumsPagination.paginator.paginatedItems}" as="pagedMediaAlbum">
+									<div class="thumb col-xs-6 col-sm-4 col-md-3 col-lg-2">
+										<f:render section="AlbumPreview" arguments="{mediaAlbum:pagedMediaAlbum}" />
+									</div>
+								</f:for>
+							</div>
+						</div>
+					</f:then>
+					<f:else>
+						<div class="alert alert-info">
+							<p><f:translate key="no_albums_found">No albums found.</f:translate></p>
+						</div>
+					</f:else>
+				</f:if>
+			</f:render>
+		</div>
+	</f:section>
+
+	<f:section name="AlbumPreview">
+		<f:if condition="{0:0, 1:1} == {0:mediaAlbum.assetsCount, 1:settings.list.hideEmptyAlbums}">
+			<f:else>
+				<div class="img-thumbnail">
+					<f:render partial="MediaAlbum/Thumb" section="Thumb" arguments="{mediaAlbum:mediaAlbum, random:settings.list.thumb.random, width:settings.list.thumb.width, height:settings.list.thumb.height, resizeMode:settings.list.thumb.resizeMode}" />
+				</div>
+			</f:else>
+		</f:if>
+	</f:section>
+
+</div>

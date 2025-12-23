@@ -1,0 +1,4 @@
+name: minifranske/fs-media-gallery-bootstrap5
+label: Media Gallery Bootstrap5 (fs_media_gallery)
+dependencies:
+  - minifranske/fs-media-gallery

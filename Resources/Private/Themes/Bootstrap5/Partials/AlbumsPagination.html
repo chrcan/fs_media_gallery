@@ -1,0 +1,87 @@
+<f:if condition="{settings.list.pagination.insertAbove}">
+    <f:render section="paginator"
+              arguments="{pagination: pagination.pagination, paginator: pagination.paginator, mediaAlbum: mediaAlbum}"/>
+</f:if>
+
+<f:format.raw>{content}</f:format.raw>
+
+<f:if condition="{settings.list.pagination.insertBelow}">
+    <f:render section="paginator"
+              arguments="{pagination: pagination.pagination, paginator: pagination.paginator, mediaAlbum: mediaAlbum}"/>
+</f:if>
+
+<f:section name="paginator">
+<f:if condition="{paginator.numberOfPages} > 1">
+    <div class="paging_bootstrap pagination">
+        <ul>
+            <f:if condition="{pagination.previousPageNumber}">
+                <li class="prev">
+                    <f:if condition="{pagination.previousPageNumber} > 1">
+                        <f:then>
+                            <f:link.action
+                                    arguments="{currentAlbumPage: pagination.previousPageNumber, mediaAlbum: mediaAlbum}">
+                                <f:translate key="widget.pagination.previous"/>
+                            </f:link.action>
+                        </f:then>
+                        <f:else>
+                            <f:link.action arguments="{mediaAlbum: mediaAlbum}">
+                                <f:translate key="widget.pagination.previous"/>
+                            </f:link.action>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:if>
+            <f:if condition="{pagination.displayRangeStart} > 1">
+                <li class="first">
+                    <f:link.action arguments="{mediaAlbum: mediaAlbum}">1</f:link.action>
+                </li>
+            </f:if>
+            <f:if condition="{pagination.hasLessPages}">
+                <li class="disabled"><a>
+                    <f:translate key="widget.pagination.ellipsis"/>
+                </a></li>
+            </f:if>
+            <f:for each="{pagination.allPageNumbers}" as="page">
+                <f:if condition="{page} == {paginator.currentPageNumber}">
+                    <f:then>
+                        <li class="active">
+                            <f:link.action arguments="{currentAlbumPage: page, mediaAlbum: mediaAlbum}">{page}</f:link.action>
+                        </li>
+                    </f:then>
+                    <f:else>
+                        <li>
+                            <f:if condition="{page} > 1">
+                                <f:then>
+                                    <f:link.action arguments="{currentAlbumPage: page, mediaAlbum: mediaAlbum}">{page}</f:link.action>
+                                </f:then>
+                                <f:else>
+                                    <f:link.action>{page}</f:link.action>
+                                </f:else>
+                            </f:if>
+                        </li>
+                    </f:else>
+                </f:if>
+            </f:for>
+            <f:if condition="{pagination.hasMorePages}">
+                <li class="disabled"><a>
+                    <f:translate key="widget.pagination.ellipsis"/>
+                </a></li>
+            </f:if>
+            <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
+                <li class="last">
+                    <f:link.action arguments="{currentAlbumPage: pagination.numberOfPages, mediaAlbum: mediaAlbum}">
+                        {pagination.numberOfPages}
+                    </f:link.action>
+                </li>
+            </f:if>
+            <f:if condition="{pagination.nextPageNumber}">
+                <li class="next">
+                    <f:link.action arguments="{currentAlbumPage: pagination.nextPageNumber, mediaAlbum: mediaAlbum}">
+                        <f:translate key="widget.pagination.next"/>
+                    </f:link.action>
+                </li>
+            </f:if>
+        </ul>
+    </div>
+</f:if>
+</f:section>

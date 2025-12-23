@@ -1,0 +1,219 @@
+<T3DataStructure>
+    <sheets>
+        <general>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.tabs.general
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.mediaAlbumsUids>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.mediaAlbumsUids
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectTree</renderType>
+                            <treeConfig>
+                                <parentField>parentalbum</parentField>
+                                <appearance>
+                                    <showHeader>TRUE</showHeader>
+                                    <width>650</width>
+                                </appearance>
+                            </treeConfig>
+                            <internal_type>db</internal_type>
+                            <size>20</size>
+                            <autoSizeMax>20</autoSizeMax>
+                            <maxitems>1000</maxitems>
+                            <minitems>0</minitems>
+                            <!-- itemsProcFunc>MiniFranske\FsMediaGallery\Controller\MediaAlbumController->flexformOptions</itemsProcFunc -->
+                            <foreign_table>sys_file_collection</foreign_table>
+                            <foreign_table_where>AND sys_file_collection.hidden = 0 AND
+                                (sys_file_collection.sys_language_uid = 0 OR sys_file_collection.l10n_parent = 0) ORDER
+                                BY sys_file_collection.sorting ASC, sys_file_collection.crdate DESC
+                            </foreign_table_where>
+                        </config>
+                    </settings.mediaAlbumsUids>
+                    <settings.useAlbumFilterAsExclude>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.useAlbumFilterAsExclude
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.useAlbumFilterAsExclude.I.0
+                                    </label>
+                                    <value>0</value>
+                                </numIndex>
+                                <numIndex index="2">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.useAlbumFilterAsExclude.I.1
+                                    </label>
+                                    <value>1</value>
+                                </numIndex>
+                            </items>
+                            <size>1</size>
+                        </config>
+                    </settings.useAlbumFilterAsExclude>
+                    <!-- startingpoint -->
+                    <settings.startingpoint>
+                        <label>LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.startingpoint</label>
+                        <config>
+                            <type>group</type>
+                            <allowed>pages</allowed>
+                            <size>3</size>
+                            <maxitems>50</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
+                    </settings.startingpoint>
+                    <!-- recursive -->
+                    <settings.recursive>
+                        <label>LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.recursive</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.0
+                                    </label>
+                                    <value>0</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.1
+                                    </label>
+                                    <value>1</value>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.2
+                                    </label>
+                                    <value>2</value>
+                                </numIndex>
+                                <numIndex index="5" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.3
+                                    </label>
+                                    <value>3</value>
+                                </numIndex>
+                                <numIndex index="6" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.4
+                                    </label>
+                                    <value>4</value>
+                                </numIndex>
+                                <numIndex index="7" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.5
+                                    </label>
+                                    <value>250</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.recursive>
+                </el>
+            </ROOT>
+        </general>
+        <random>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.tabs.random
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.random.targetPid>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.random.targetPid
+                        </label>
+                        <config>
+                            <type>group</type>
+                            <allowed>pages</allowed>
+                            <size>1</size>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
+                    </settings.random.targetPid>
+                    <settings.random.thumb.width>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.random.thumb.width
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>4</size>
+                            <max>4</max>
+                        </config>
+                    </settings.random.thumb.width>
+                    <settings.random.thumb.height>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.random.thumb.height
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>4</size>
+                            <max>4</max>
+                        </config>
+                    </settings.random.thumb.height>
+                    <settings.random.thumb.resizeMode>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.m
+                                    </label>
+                                    <value>m</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.c
+                                    </label>
+                                    <value>c</value>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.s
+                                    </label>
+                                    <value>s</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.random.thumb.resizeMode>
+                </el>
+            </ROOT>
+        </random>
+    </sheets>
+</T3DataStructure>

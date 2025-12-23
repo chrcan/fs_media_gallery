@@ -1,0 +1,31 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
+	xmlns:mf="http://typo3.org/ns/MiniFranske/FsMediaGallery/ViewHelpers">
+
+	<f:section name="Lightbox">
+		<f:if condition="{0:'fslightbox'} == {0:settings.album.lightbox.jsPlugin}">
+			<mf:embed.javaScript moveToFooter="TRUE">
+				document.addEventListener('DOMContentLoaded', function() {
+				var styleClass = '{settings.album.lightbox.styleClass}-{mediaAlbum.uid}';
+				var relName = '{settings.album.lightbox.relPrefix}{mediaAlbum.uid}';
+				var current = '{f:translate(key:'lightbox_current', default:'image {current} of {total}')}';
+
+				var lightboxLinks = document.querySelectorAll('.' + styleClass);
+
+				if (lightboxLinks.length > 0) {
+				// Responsive Logik
+				var updateLightboxSize = function() {
+				var isMobile = window.innerWidth < 768; // FsLightbox Größe anpassen (falls API verfügbar) if
+					(window.fsLightbox && window.fsLightbox.props) { window.fsLightbox.props.maxScale=isMobile ? 1.0 :
+					0.8; } }; // Data-Attribute für automatische FsLightbox-Erkennung setzen
+					lightboxLinks.forEach(function(link, index) { link.setAttribute('data-fslightbox', relName); //
+					Custom caption mit Zähler var title=link.dataset.title || '' ; var caption='' ; if (current) {
+					caption=current.replace('{current}', index + 1) .replace('{total}', lightboxLinks.length); } if
+					(title) { caption=title + (caption ? ' - ' + caption : '' ); } if (caption) {
+					link.setAttribute('data-caption', caption); } }); // Größe bei Resize aktualisieren
+					window.addEventListener('resize', updateLightboxSize); updateLightboxSize(); // FsLightbox nach
+					laden der Bibliothek initialisieren if (typeof FsLightbox !=='undefined' ) { refreshFsLightbox(); }
+					} }); </mf:embed.javaScript>
+		</f:if>
+	</f:section>
+
+</div>

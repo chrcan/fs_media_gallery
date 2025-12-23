@@ -1,0 +1,30 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en"
+	 xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
+	 xmlns:mf="http://typo3.org/ns/MiniFranske/FsMediaGallery/ViewHelpers">
+
+	<!--
+	 Displays an album list
+	-->
+
+	<f:section name="AlbumsList">
+		<f:render partial="AlbumsPagination" contentAs="content" arguments="{pagination: mediaAlbumsPagination, mediaAlbum: mediaAlbum}">
+			<f:if condition="{mediaAlbumsPagination.paginator.paginatedItems}">
+				<f:then>
+					<div class="thumbs thumbs-albums clearfix">
+						<f:for each="{mediaAlbumsPagination.paginator.paginatedItems}" as="pagedMediaAlbum">
+							<div class="thumb">
+								<f:render partial="MediaAlbum/Thumb" section="Thumb" arguments="{mediaAlbum:pagedMediaAlbum, random:settings.list.thumb.random, width:settings.list.thumb.width, height:settings.list.thumb.height, resizeMode:settings.list.thumb.resizeMode}" />
+							</div>
+						</f:for>
+					</div>
+				</f:then>
+				<f:else>
+					<div class="alert alert-info">
+						<p><f:translate key="no_albums_found">No albums found.</f:translate></p>
+					</div>
+				</f:else>
+			</f:if>
+		</f:render>
+	</f:section>
+
+</div>

@@ -1,0 +1,59 @@
+mod.wizards.newContentElement {
+    wizardItems {
+        plugins {
+            elements {
+            # NestedList Plugin
+            fsmediagallery_nestedlist {
+                iconIdentifier = content-mediagallery
+                title = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.nestedList.title
+                description = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.nestedList.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fsmediagallery_nestedlist
+                }
+            }
+            # FlatList Plugin
+            fsmediagallery_flatlist {
+                iconIdentifier = content-mediagallery
+                title = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.flatList.title
+                description = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.flatList.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fsmediagallery_flatlist
+                }
+            }
+            # ShowAlbumByConfig Plugin
+            fsmediagallery_showalbumbyconfig {
+                iconIdentifier = content-mediagallery
+                title = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.showAlbumByConfig.title
+                description = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.showAlbumByConfig.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fsmediagallery_showalbumbyconfig
+                }
+            }
+            # ShowAlbum Plugin
+            fsmediagallery_showalbum {
+                iconIdentifier = content-mediagallery
+                title = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.showAlbum.title
+                description = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.showAlbum.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fsmediagallery_showalbum
+                }
+            }
+            # RandomAsset Plugin
+            fsmediagallery_randomasset {
+                iconIdentifier = content-mediagallery
+                title = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.randomAsset.title
+                description = LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:mediagallery.randomAsset.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fsmediagallery_randomasset
+                }
+                }
+            }
+        show = *
+        }
+    }
+}

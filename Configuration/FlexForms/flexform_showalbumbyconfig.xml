@@ -1,0 +1,371 @@
+<T3DataStructure>
+    <sheets>
+        <general>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.tabs.general
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <!-- single album selection -->
+                    <settings.mediaAlbum>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.mediaAlbum
+                        </label>
+                        <config>
+                            <type>group</type>
+                            <allowed>sys_file_collection</allowed>
+                            <size>1</size>
+                            <maxitems>1</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
+                    </settings.mediaAlbum>
+                    <!-- startingpoint -->
+                    <settings.startingpoint>
+                        <label>LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.startingpoint</label>
+                        <config>
+                            <type>group</type>
+                            <allowed>pages</allowed>
+                            <size>3</size>
+                            <maxitems>50</maxitems>
+                            <minitems>0</minitems>
+                            <show_thumbs>1</show_thumbs>
+                            <wizards>
+                                <suggest>
+                                    <type>suggest</type>
+                                </suggest>
+                            </wizards>
+                        </config>
+                    </settings.startingpoint>
+                    <!-- recursive -->
+                    <settings.recursive>
+                        <label>LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.recursive</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.0
+                                    </label>
+                                    <value>0</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.1
+                                    </label>
+                                    <value>1</value>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.2
+                                    </label>
+                                    <value>2</value>
+                                </numIndex>
+                                <numIndex index="5" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.3
+                                    </label>
+                                    <value>3</value>
+                                </numIndex>
+                                <numIndex index="6" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.4
+                                    </label>
+                                    <value>4</value>
+                                </numIndex>
+                                <numIndex index="7" type="array">
+                                    <label>LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.5
+                                    </label>
+                                    <value>250</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.recursive>
+                </el>
+            </ROOT>
+        </general>
+        <album>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.tabs.album
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.album.assets.orderBy>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderBy
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <itemsProcFunc>
+                                MiniFranske\FsMediaGallery\Hooks\ItemsProcFuncHook->getItemsForAssetsOrderBy
+                            </itemsProcFunc>
+                            <items>
+                                <numIndex index="0" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderBy.I.name
+                                    </label>
+                                    <value>name</value>
+                                </numIndex>
+                                <numIndex index="2">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderBy.I.crdate
+                                    </label>
+                                    <value>crdate</value>
+                                </numIndex>
+                                <numIndex index="3">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderBy.I.title
+                                    </label>
+                                    <value>title</value>
+                                </numIndex>
+                                <numIndex index="4">
+                                    <label>
+                                        LLL:EXT:filemetadata/Resources/Private/Language/locallang_tca.xlf:sys_file_metadata.content_creation_date
+                                    </label>
+                                    <value>content_creation_date</value>
+                                </numIndex>
+                                <numIndex index="5">
+                                    <label>
+                                        LLL:EXT:filemetadata/Resources/Private/Language/locallang_tca.xlf:sys_file_metadata.content_modification_date
+                                    </label>
+                                    <value>content_modification_date</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.album.assets.orderBy>
+                    <settings.album.assets.orderDirection>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderDirection
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderDirection.I.asc
+                                    </label>
+                                    <value>asc</value>
+                                </numIndex>
+                                <numIndex index="2">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.assets.orderDirection.I.desc
+                                    </label>
+                                    <value>desc</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.album.assets.orderDirection>
+                    <settings.album.pagination.itemsPerPage>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.album.pagination.itemsPerPage
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>2</size>
+                            <max>3</max>
+                            <nullable>1</nullable>
+                        </config>
+                    </settings.album.pagination.itemsPerPage>
+                    <settings.album.thumb.width>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.album.thumb.width
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>4</size>
+                            <max>4</max>
+                        </config>
+                    </settings.album.thumb.width>
+                    <settings.album.thumb.height>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.album.thumb.height
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>4</size>
+                            <max>4</max>
+                        </config>
+                    </settings.album.thumb.height>
+                    <settings.album.thumb.resizeMode>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.m
+                                    </label>
+                                    <value>m</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.c
+                                    </label>
+                                    <value>c</value>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.s
+                                    </label>
+                                    <value>s</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.album.thumb.resizeMode>
+                    <settings.album.lightbox.enable>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.album.lightbox.enable
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:yes</label>
+                                    <value>1</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:no</label>
+                                    <value>0</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.album.lightbox.enable>
+                    <settings.album.displayTitle>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.album.displayTitle
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:yes</label>
+                                    <value>1</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:no</label>
+                                    <value>0</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.album.displayTitle>
+                </el>
+            </ROOT>
+        </album>
+        <detail>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.tabs.detail
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.detail.asset.width>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.detail.asset.width
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>4</size>
+                            <max>4</max>
+                        </config>
+                    </settings.detail.asset.width>
+                    <settings.detail.asset.height>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.mediagallery.detail.asset.height
+                        </label>
+                        <config>
+                            <type>input</type>
+                            <eval>num</eval>
+                            <size>4</size>
+                            <max>4</max>
+                        </config>
+                    </settings.detail.asset.height>
+                    <settings.detail.asset.resizeMode>
+                        <label>
+                            LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode
+                        </label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items type="array">
+                                <numIndex index="1" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.I.inherit
+                                    </label>
+                                    <value></value>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.m
+                                    </label>
+                                    <value>m</value>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.c
+                                    </label>
+                                    <value>c</value>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <label>
+                                        LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_be.xlf:flexforms.general.resizeMode.I.s
+                                    </label>
+                                    <value>s</value>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.detail.asset.resizeMode>
+                </el>
+            </ROOT>
+        </detail>
+    </sheets>
+</T3DataStructure>

@@ -1,0 +1,94 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
+	xmlns:mf="http://typo3.org/ns/MiniFranske/FsMediaGallery/ViewHelpers">
+
+	<f:layout name="Default" />
+
+	<f:section name="main">
+		<f:flashMessages />
+		<f:if condition="{mediaAlbum}">
+			<f:then>
+				<div class="album clearfix">
+					<f:if condition="{settings.album.displayTitle}">
+						<h3>{mediaAlbum.title}</h3>
+					</f:if>
+					<div class="description">
+						<f:format.html>{mediaAlbum.webdescription}</f:format.html>
+					</div>
+					<f:if condition="{mediaAlbums}">
+						<f:then>
+							<f:render partial="MediaAlbum/NestedList/AlbumsList" section="AlbumsList"
+								arguments="{mediaAlbums:mediaAlbums, mediaAlbumsPagination: mediaAlbumsPagination}" />
+						</f:then>
+					</f:if>
+
+					<f:render partial="AlbumPagination" contentAs="content"
+						arguments="{pagination: mediaAlbumPagination, mediaAlbum: mediaAlbum}">
+						<f:if condition="{settings.album.lightbox.enable}">
+							<f:for each="{mediaAlbumPagination.paginator.itemsBefore}" as="mediaAsset">
+								<a href="{f:uri.image(image:mediaAsset, width:'{settings.album.lightbox.asset.width}{settings.album.lightbox.asset.resizeMode}', height:'{settings.album.lightbox.asset.height}{settings.album.lightbox.asset.resizeMode}')}"
+									data-fslightbox="{settings.album.lightbox.relPrefix}{mediaAlbum.uid}"
+									class="{settings.album.lightbox.styleClass} {settings.album.lightbox.styleClass}-{mediaAlbum.uid}"
+									title="{mf:fileTitle(file:mediaAsset)} - {mediaAlbum.title}"></a>
+							</f:for>
+						</f:if>
+						<f:if condition="{mediaAlbumPagination.paginator.paginatedItems}">
+							<f:then>
+								<div class="thumbs thumbs-assets clearfix">
+									<f:for each="{mediaAlbumPagination.paginator.paginatedItems}" as="mediaAsset">
+										<f:render partial="MediaAsset/Thumb" section="Thumb"
+											arguments="{mediaAlbum:mediaAlbum,mediaAsset:mediaAsset}" />
+									</f:for>
+								</div>
+							</f:then>
+							<f:else>
+								<f:if condition="{mediaAlbums}">
+									<f:else>
+										<div class="alert alert-info">
+											<p>
+												<f:translate key="no_assets_found">No assets found.</f:translate>
+											</p>
+										</div>
+									</f:else>
+								</f:if>
+							</f:else>
+						</f:if>
+						<f:if condition="{settings.album.lightbox.enable}">
+							<f:for each="{mediaAlbumPagination.paginator.itemsAfter}" as="mediaAsset">
+								<a href="{f:uri.image(image:mediaAsset, width:'{settings.album.lightbox.asset.width}{settings.album.lightbox.asset.resizeMode}', height:'{settings.album.lightbox.asset.height}{settings.album.lightbox.asset.resizeMode}')}"
+									data-fslightbox="{settings.album.lightbox.relPrefix}{mediaAlbum.uid}"
+									class="{settings.album.lightbox.styleClass} {settings.album.lightbox.styleClass}-{mediaAlbum.uid}"
+									title="{mf:fileTitle(file:mediaAsset)} - {mediaAlbum.title}"></a>
+							</f:for>
+						</f:if>
+					</f:render>
+					<f:if condition="{showBackLink}">
+						<div class="navigation">
+							<f:if condition="{parentAlbum}">
+								<f:then>
+									<f:link.action class="btn btn-default" controller="MediaAlbum"
+										arguments="{mediaAlbum:parentAlbum}">
+										<f:translate id="back_to_%s" arguments="{0: parentAlbum.title}">Back to %s
+										</f:translate>
+									</f:link.action>
+								</f:then>
+								<f:else>
+									<f:link.action class="btn btn-default" controller="MediaAlbum">
+										<f:translate key="back_to_album">Back to album</f:translate>
+									</f:link.action>
+								</f:else>
+							</f:if>
+						</div>
+					</f:if>
+				</div>
+				<f:if condition="{settings.album.lightbox.enable}">
+					<f:render partial="MediaAlbum/Lightbox" section="Lightbox" arguments="{mediaAlbum:mediaAlbum}" />
+				</f:if>
+			</f:then>
+			<f:else>
+				<f:render partial="MediaAlbum/NestedList/AlbumsList" section="AlbumsList"
+					arguments="{mediaAlbums:mediaAlbums, mediaAlbumsPagination: mediaAlbumsPagination}" />
+			</f:else>
+		</f:if>
+	</f:section>
+
+</div>

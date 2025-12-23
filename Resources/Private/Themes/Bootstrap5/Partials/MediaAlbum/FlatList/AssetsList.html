@@ -1,0 +1,71 @@
+<div xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:f="http://typo3.org/ns/fluid/ViewHelpers"
+	xmlns:mf="http://typo3.org/ns/MiniFranske/FsMediaGallery/ViewHelpers">
+
+	<!--
+	 Displays assets of an album in FlatList view
+	 Theme: Bootstrap3
+	-->
+
+	<f:section name="AssetsList">
+		<div class="album">
+			<f:if condition="{settings.album.displayTitle}">
+				<h3>{mediaAlbum.title}</h3>
+			</f:if>
+			<div class="description">
+				<f:format.html>{mediaAlbum.webdescription}</f:format.html>
+			</div>
+			<f:render partial="AlbumPagination" contentAs="content"
+				arguments="{pagination: mediaAlbumPagination, mediaAlbum: mediaAlbum}">
+				<f:if condition="{settings.album.lightbox.enable}">
+					<f:for each="{mediaAlbumPagination.paginator.itemsBefore}" as="mediaAsset">
+						<a href="{f:uri.image(image:mediaAsset, width:'{settings.album.lightbox.asset.width}{settings.album.lightbox.asset.resizeMode}', height:'{settings.album.lightbox.asset.height}{settings.album.lightbox.asset.resizeMode}')}"
+							data-fslightbox="{settings.album.lightbox.relPrefix}{mediaAlbum.uid}"
+							class="{settings.album.lightbox.styleClass} {settings.album.lightbox.styleClass}-{mediaAlbum.uid}"
+							title="{mf:fileTitle(file:mediaAsset)} - {mediaAlbum.title}"></a>
+					</f:for>
+				</f:if>
+				<f:if condition="{mediaAlbumPagination.paginator.paginatedItems}">
+					<f:then>
+						<div class="container-fluid">
+							<div class="row">
+								<f:for each="{mediaAlbumPagination.paginator.paginatedItems}" as="mediaAsset"
+									iteration="i">
+									<div class="thumb col-xs-6 col-sm-4 col-md-3 col-lg-2">
+										<f:render partial="MediaAsset/Thumb" section="Thumb"
+											arguments="{mediaAlbum:mediaAlbum,mediaAsset:mediaAsset}" />
+									</div>
+								</f:for>
+							</div>
+						</div>
+					</f:then>
+					<f:else>
+						<div class="alert alert-info">
+							<p>
+								<f:translate key="no_assets_found">No assets found.</f:translate>
+							</p>
+						</div>
+					</f:else>
+				</f:if>
+				<f:if condition="{settings.album.lightbox.enable}">
+					<f:for each="{mediaAlbumPagination.paginator.itemsAfter}" as="mediaAsset">
+						<a href="{f:uri.image(image:mediaAsset, width:'{settings.album.lightbox.asset.width}{settings.album.lightbox.asset.resizeMode}', height:'{settings.album.lightbox.asset.height}{settings.album.lightbox.asset.resizeMode}')}"
+							data-fslightbox="{settings.album.lightbox.relPrefix}{mediaAlbum.uid}"
+							class="{settings.album.lightbox.styleClass} {settings.album.lightbox.styleClass}-{mediaAlbum.uid}"
+							title="{mf:fileTitle(file:mediaAsset)} - {mediaAlbum.title}"></a>
+					</f:for>
+				</f:if>
+			</f:render>
+			<f:if condition="{showBackLink}">
+				<div class="navigation">
+					<f:link.action class="btn btn-default" controller="MediaAlbum">
+						<f:translate key="back_to_albums_list">Back to album list</f:translate>
+					</f:link.action>
+				</div>
+			</f:if>
+		</div>
+		<f:if condition="{settings.album.lightbox.enable}">
+			<f:render partial="MediaAlbum/Lightbox" section="Lightbox" arguments="{mediaAlbum:mediaAlbum}" />
+		</f:if>
+	</f:section>
+
+</div>
