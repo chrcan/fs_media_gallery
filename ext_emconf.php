@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /*
  * (c) 2025 rc design visual concepts (rc-design.at)
  * _________________________________________________
