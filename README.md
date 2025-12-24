@@ -16,15 +16,15 @@ A FAL based media gallery for TYPO3. Show your assets from your local or remote 
 
 ## Quick install notes
 
-- Install extension through Extension Manager or composer `composer require minifranske/fs-media-gallery`
-- Include Static Template "Media Galley (fs_media_gallery)"
-- Create a StoragePage and set "Contains Plugin" to "Media Galleries"
-- Go to file module and open the folder you want to turn into a album
-  - Click on the "Create new album..." in context menu or top toolbar
-  - Save your new album
-- Insert plugin on page and select "Media Gallery" as plugin type
-- Adjust the "Display mode" to the preferred gallery
-- Set the "Record Storage Page" to the "StoragePage" you just created
+- Install the extension via Extension Manager or Composer `composer require minifranske/fs-media-gallery`
+- Add the static template ‘Media Gallery (fs_media_gallery)’
+- Create a StoragePage and set ‘Contains Plugin’ to ‘Media Galleries’
+- Go to the file module and open the folder you want to convert into an album
+  - Click on ‘Turn into album (add to ’Photo album‘)’ in the context menu or in the top toolbar.
+  - Save your new album.
+- Insert the plugin on the page and select the ‘FS Media Gallery’ button, then select ‘Nested List’.
+- Adjust the ‘Display mode’ to the desired gallery.
+- Set the ‘Record Storage Page’ to the ‘StoragePage’ you just created.
 - Open FE and admire your album :)
 
 ## Known issues
