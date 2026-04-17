@@ -17,8 +17,8 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
 
 #[UpgradeWizard('fsMediaGallery_migratePlugins')]
 final class MigratePlugins implements UpgradeWizardInterface
@@ -56,7 +56,7 @@ final class MigratePlugins implements UpgradeWizardInterface
                     unset($flexFormArray['data']['general']['lDEF']['switchableControllerActions']);
 
                     $flexFormTools = new FlexFormTools();
-                    $flexFormString = $flexFormTools->flexArray2Xml($flexFormArray, addPrologue: true);
+                    $flexFormString = $flexFormTools->flexArray2Xml($flexFormArray);
 
                     if (!$this->updateContentElement($contentElement['uid'], $pluginSignature, $flexFormString)) {
                         return false;

@@ -44,6 +44,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 // Korrektur für TYPO3 v14: Annotation → Attribute Namespace
 use TYPO3\CMS\Extbase\Attribute as Extbase;
@@ -153,8 +154,20 @@ class MediaAlbumController extends ActionController
             $this->settings['recursive'] = $frameworkSettings['persistence']['recursive'] = 0;
         }
 
-        // write back altered configuration
-        $this->configurationManager->setConfiguration($frameworkSettings);
+        // TYPO3 v14: configurationManager->setConfiguration() removed (#101216)
+        // configure repository storage page IDs directly
+        $querySettings = $this->mediaAlbumRepository->createQuery()->getQuerySettings();
+        $storagePid = (int)($frameworkSettings['persistence']['storagePid'] ?? 0);
+        if ($storagePid > 0) {
+            $recursive = (int)($frameworkSettings['persistence']['recursive'] ?? 0);
+            $pageIds = $recursive > 0
+                ? $this->resolveStoragePageIds($storagePid, $recursive)
+                : [$storagePid];
+            $querySettings->setStoragePageIds($pageIds);
+        } else {
+            $querySettings->setRespectStoragePage(false);
+        }
+        $this->mediaAlbumRepository->setDefaultQuerySettings($querySettings);
 
         // check some settings
         if (!isset($this->settings['list']['pagination']['itemsPerPage']) || $this->settings['list']['pagination']['itemsPerPage'] < 1) {
@@ -176,6 +189,31 @@ class MediaAlbumController extends ActionController
         if (isset($this->settings['random']['thumb']['resizeMode']) && $this->settings['random']['thumb']['resizeMode'] == 's') {
             $this->settings['random']['thumb']['resizeMode'] = '';
         }
+    }
+
+    private function resolveStoragePageIds(int $rootPid, int $depth): array
+    {
+        $pageIds = [$rootPid];
+        $parentIds = [$rootPid];
+        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+        for ($level = 0; $level < $depth; $level++) {
+            $queryBuilder = $connectionPool->getQueryBuilderForTable('pages');
+            $subIds = $queryBuilder
+                ->select('uid')
+                ->from('pages')
+                ->where(
+                    $queryBuilder->expr()->in('pid', $parentIds),
+                    $queryBuilder->expr()->eq('deleted', 0)
+                )
+                ->executeQuery()
+                ->fetchFirstColumn();
+            if (empty($subIds)) {
+                break;
+            }
+            $parentIds = $subIds;
+            $pageIds = array_merge($pageIds, $subIds);
+        }
+        return array_unique($pageIds);
     }
 
     /**

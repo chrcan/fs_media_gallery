@@ -25,7 +25,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -65,18 +64,18 @@ class JavaScriptViewHelper extends AbstractViewHelper
 
         if (empty($this->arguments['name'])) {
             $blockName = 'tx_fsmediagallery';
-            if ($cObj = $this->getContentObjectRenderer()) {
-                $blockName .= '.' . $cObj->data['uid'];
+            // TYPO3 v14: avoid ContentObjectRenderer property access (marked @internal in #102621)
+            // use Fluid VariableProvider instead — 'data' contains the current content element record
+            $data = $this->renderingContext->getVariableProvider()->get('data');
+            if (is_array($data) && !empty($data['uid'])) {
+                $blockName .= '.' . (int)$data['uid'];
             }
         } else {
             $blockName = (string)$this->arguments['name'];
         }
 
         if (!empty($this->arguments['moveToFooter']) && $this->getApplicationType() === 'FE') {
-            // KORREKTUR für TYPO3 v14: $GLOBALS['TSFE'] ist entfernt → verwende Request Attribute
             $compressJs = $this->getCompressJsSetting();
-
-            // add JS inline code to footer
             GeneralUtility::makeInstance(PageRenderer::class)->addJsFooterInlineCode(
                 $blockName,
                 $content,
@@ -89,32 +88,18 @@ class JavaScriptViewHelper extends AbstractViewHelper
             '/*' . $blockName . '*/' . $lb . $content . $lb . '/*]]>*/' . $lb . '</script>';
     }
 
-    /**
-     * Get compressJs setting from TypoScript config.
-     * Neue Methode für TYPO3 v14: Ersatz für $GLOBALS['TSFE']->config['config']['compressJs']
-     */
     private function getCompressJsSetting(): bool
     {
         $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
-
         if ($request instanceof ServerRequestInterface) {
-            // Korrektur: frontend.typoscript Attribut verwenden
             $typoscript = $request->getAttribute('frontend.typoscript');
             if ($typoscript !== null && method_exists($typoscript, 'getConfigArray')) {
-                $config = $typoscript->getConfigArray();
-                return (bool)($config['compressJs'] ?? false);
+                return (bool)($typoscript->getConfigArray()['compressJs'] ?? false);
             }
         }
-
-        // Fallback: Standardwert
         return false;
     }
 
-    /**
-     * String 'FE' if in FrontendApplication, 'BE' otherwise (also in CLI without request object).
-     *
-     * @internal
-     */
     public function getApplicationType(): string
     {
         if (
@@ -123,28 +108,6 @@ class JavaScriptViewHelper extends AbstractViewHelper
         ) {
             return 'FE';
         }
-
         return 'BE';
-    }
-
-    private function getContentObjectRenderer(): ?ContentObjectRenderer
-    {
-        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
-
-        if ($request instanceof ServerRequestInterface) {
-            // cObject direkt aus Request Attributen holen
-            return $request->getAttribute('currentContentObject');
-        }
-
-        return null;
-    }
-
-    /**
-     * Alternative Methode für Extbase Request - korrigierte Version ohne getRequest()
-     */
-    private function getExtbaseRequest(): ?ServerRequestInterface
-    {
-        // Direkter Zugriff auf globalen Request
-        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }

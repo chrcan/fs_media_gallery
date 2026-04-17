@@ -25,9 +25,10 @@ namespace MiniFranske\FsMediaGallery\Updates;
  */
 
 use MiniFranske\FsMediaGallery\Service\SlugService;
+use TYPO3\CMS\Core\Attribute\UpgradeWizard;
+use TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite;
+use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
  * Migrate EXT:realurl unique alias into album slugs.
@@ -39,6 +40,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  * Will only appear if missing slugs found between realurl and fs_media_gallery, respecting language and expire date from realurl
  * Converts title into slug
  */
+#[UpgradeWizard('fsMediaGallery_realurlAliasMediaAlbumsSlug')]
 class RealurlAliasMediaAlbumsSlug implements UpgradeWizardInterface
 {
     /**
