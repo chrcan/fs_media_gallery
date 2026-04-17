@@ -16,10 +16,10 @@ Show your media assets from your local or remote storage as a gallery of albums.
     'author_email' => 'franssaris@gmail.com',
     'author_company' => '',
     'state' => 'stable',
-    'version' => '6.0.0',
+    'version' => '7.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '13.0.0-14.9.99',
+            'typo3' => '14.0.0-14.9.99',
         ],
         'conflicts' => [],
         'suggests' => [],
