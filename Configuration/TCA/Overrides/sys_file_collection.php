@@ -74,29 +74,15 @@ $additionalColumns = [
     'main_asset' => [
         'exclude' => 1,
         'label' => 'LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_db.xlf:tx_fsmediagallery_domain_model_mediaalbum.main_asset',
-        // 'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-        //     'images',
-        //     [
-        //         'appearance' => [
-        //             'createNewRelationLinkTitle' => 'LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_db.xlf:tx_fsmediagallery_domain_model_mediaalbum.main_asset.add'
-        //         ],
-        //         'maxitems' => 1,
-        //     ],
-        //     $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
-
-        'images' => [
-            'config' => [
-                'appearance' => [
-                    'createNewRelationLinkTitle' => 'LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_db.xlf:tx_fsmediagallery_domain_model_mediaalbum.main_asset.add',
-                ],
-                'type' => 'file',
-                'maxitems' => 1,
-                'allowed' => 'common-image-types',
+        'config' => [
+            'type' => 'file',
+            'maxitems' => 1,
+            'allowed' => 'common-image-types',
+            'appearance' => [
+                'createNewRelationLinkTitle' => 'LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_db.xlf:tx_fsmediagallery_domain_model_mediaalbum.main_asset.add',
             ],
         ],
     ],
-    // )
-    // ],
     'slug' => [
         'exclude' => true,
         'label' => 'LLL:EXT:fs_media_gallery/Resources/Private/Language/locallang_db.xlf:tx_fsmediagallery_domain_model_mediaalbum.slug',
