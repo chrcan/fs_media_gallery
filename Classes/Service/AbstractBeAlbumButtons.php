@@ -40,6 +40,7 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Resource\Exception\ResourceDoesNotExistException;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\FolderInterface;
@@ -150,7 +151,7 @@ abstract class AbstractBeAlbumButtons
                     $mediaAlbumUid => 'edit',
                 ],
             ],
-            'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI'),
+            'returnUrl' => $this->getRequestUri(),
         ]);
     }
 
@@ -173,11 +174,19 @@ abstract class AbstractBeAlbumButtons
                     'type' => 'folder',
                 ],
             ],
-            'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI'),
+            'returnUrl' => $this->getRequestUri(),
         ]);
     }
 
     abstract protected function createLink(string $title, string $shortTitle, Icon $icon, string $url, bool $addReturnUrl = true): array;
+
+    private function getRequestUri(): string
+    {
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
+        /** @var NormalizedParams|null $normalizedParams */
+        $normalizedParams = $request?->getAttribute('normalizedParams');
+        return $normalizedParams?->getRequestUri() ?? '';
+    }
 
     protected function getIcon(string $name): Icon
     {
