@@ -420,7 +420,7 @@ class MediaAlbumController extends ActionController
      *
      * @throws ImmediateResponseException
      */
-    #[Extbase\IgnoreValidation(['value' => ''])]
+    #[Extbase\IgnoreValidation('mediaAlbum')]
     public function showAssetAction(MediaAlbum $mediaAlbum, int $mediaAssetUid): ResponseInterface
     {
         if (isset($this->settings['album']['assets']['orderBy'])) {

@@ -116,7 +116,7 @@ class SlugService
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tx_realurl_uniqalias');
-        $schemaManager = $queryBuilder->getConnection()->getSchemaManager();
+        $schemaManager = $queryBuilder->getConnection()->createSchemaManager();
         if ($schemaManager->tablesExist(['tx_realurl_uniqalias']) === true) {
             // Count valid aliases
             $queryBuilder->getRestrictions()->removeAll();
@@ -178,7 +178,7 @@ class SlugService
         /** @var QueryBuilder $queryBuilderForRealurl */
         $queryBuilderForRealurl = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tx_realurl_uniqalias');
-        $schemaManager = $queryBuilderForRealurl->getConnection()->getSchemaManager();
+        $schemaManager = $queryBuilderForRealurl->getConnection()->createSchemaManager();
         if ($schemaManager->tablesExist(['tx_realurl_uniqalias']) === true) {
             /** @var Connection $connection */
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)
