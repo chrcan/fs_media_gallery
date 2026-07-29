@@ -3,7 +3,7 @@
 
 	<!--
 	 Displays assets of an album in FlatList view
-	 Theme: Bootstrap3
+	 Theme: Bootstrap5
 	-->
 
 	<f:section name="AssetsList">
@@ -27,10 +27,10 @@
 				<f:if condition="{mediaAlbumPagination.paginator.paginatedItems}">
 					<f:then>
 						<div class="container-fluid">
-							<div class="row">
+							<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
 								<f:for each="{mediaAlbumPagination.paginator.paginatedItems}" as="mediaAsset"
 									iteration="i">
-									<div class="thumb col-xs-6 col-sm-4 col-md-3 col-lg-2">
+									<div class="thumb col">
 										<f:render partial="MediaAsset/Thumb" section="Thumb"
 											arguments="{mediaAlbum:mediaAlbum,mediaAsset:mediaAsset}" />
 									</div>
@@ -57,7 +57,7 @@
 			</f:render>
 			<f:if condition="{showBackLink}">
 				<div class="navigation">
-					<f:link.action class="btn btn-default" controller="MediaAlbum">
+					<f:link.action class="btn btn-secondary" controller="MediaAlbum">
 						<f:translate key="back_to_albums_list">Back to album list</f:translate>
 					</f:link.action>
 				</div>

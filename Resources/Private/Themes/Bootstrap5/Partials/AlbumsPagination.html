@@ -12,19 +12,19 @@
 
 <f:section name="paginator">
 <f:if condition="{paginator.numberOfPages} > 1">
-    <div class="paging_bootstrap pagination">
-        <ul>
+    <nav aria-label="Albums pagination">
+        <ul class="pagination">
             <f:if condition="{pagination.previousPageNumber}">
-                <li class="prev">
+                <li class="page-item">
                     <f:if condition="{pagination.previousPageNumber} > 1">
                         <f:then>
-                            <f:link.action
+                            <f:link.action class="page-link"
                                     arguments="{currentAlbumPage: pagination.previousPageNumber, mediaAlbum: mediaAlbum}">
                                 <f:translate key="widget.pagination.previous"/>
                             </f:link.action>
                         </f:then>
                         <f:else>
-                            <f:link.action arguments="{mediaAlbum: mediaAlbum}">
+                            <f:link.action class="page-link" arguments="{mediaAlbum: mediaAlbum}">
                                 <f:translate key="widget.pagination.previous"/>
                             </f:link.action>
                         </f:else>
@@ -32,30 +32,30 @@
                 </li>
             </f:if>
             <f:if condition="{pagination.displayRangeStart} > 1">
-                <li class="first">
-                    <f:link.action arguments="{mediaAlbum: mediaAlbum}">1</f:link.action>
+                <li class="page-item">
+                    <f:link.action class="page-link" arguments="{mediaAlbum: mediaAlbum}">1</f:link.action>
                 </li>
             </f:if>
             <f:if condition="{pagination.hasLessPages}">
-                <li class="disabled"><a>
+                <li class="page-item disabled"><a class="page-link">
                     <f:translate key="widget.pagination.ellipsis"/>
                 </a></li>
             </f:if>
             <f:for each="{pagination.allPageNumbers}" as="page">
                 <f:if condition="{page} == {paginator.currentPageNumber}">
                     <f:then>
-                        <li class="active">
-                            <f:link.action arguments="{currentAlbumPage: page, mediaAlbum: mediaAlbum}">{page}</f:link.action>
+                        <li class="page-item active">
+                            <f:link.action class="page-link" arguments="{currentAlbumPage: page, mediaAlbum: mediaAlbum}">{page}</f:link.action>
                         </li>
                     </f:then>
                     <f:else>
-                        <li>
+                        <li class="page-item">
                             <f:if condition="{page} > 1">
                                 <f:then>
-                                    <f:link.action arguments="{currentAlbumPage: page, mediaAlbum: mediaAlbum}">{page}</f:link.action>
+                                    <f:link.action class="page-link" arguments="{currentAlbumPage: page, mediaAlbum: mediaAlbum}">{page}</f:link.action>
                                 </f:then>
                                 <f:else>
-                                    <f:link.action>{page}</f:link.action>
+                                    <f:link.action class="page-link">{page}</f:link.action>
                                 </f:else>
                             </f:if>
                         </li>
@@ -63,25 +63,25 @@
                 </f:if>
             </f:for>
             <f:if condition="{pagination.hasMorePages}">
-                <li class="disabled"><a>
+                <li class="page-item disabled"><a class="page-link">
                     <f:translate key="widget.pagination.ellipsis"/>
                 </a></li>
             </f:if>
             <f:if condition="{pagination.displayRangeEnd} < {pagination.numberOfPages}">
-                <li class="last">
-                    <f:link.action arguments="{currentAlbumPage: pagination.numberOfPages, mediaAlbum: mediaAlbum}">
+                <li class="page-item">
+                    <f:link.action class="page-link" arguments="{currentAlbumPage: pagination.numberOfPages, mediaAlbum: mediaAlbum}">
                         {pagination.numberOfPages}
                     </f:link.action>
                 </li>
             </f:if>
             <f:if condition="{pagination.nextPageNumber}">
-                <li class="next">
-                    <f:link.action arguments="{currentAlbumPage: pagination.nextPageNumber, mediaAlbum: mediaAlbum}">
+                <li class="page-item">
+                    <f:link.action class="page-link" arguments="{currentAlbumPage: pagination.nextPageNumber, mediaAlbum: mediaAlbum}">
                         <f:translate key="widget.pagination.next"/>
                     </f:link.action>
                 </li>
             </f:if>
         </ul>
-    </div>
+    </nav>
 </f:if>
 </f:section>

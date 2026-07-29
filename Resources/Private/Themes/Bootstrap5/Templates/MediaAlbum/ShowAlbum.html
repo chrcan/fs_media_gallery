@@ -27,9 +27,9 @@
 						<f:if condition="{mediaAlbumPagination.paginator.paginatedItems}">
 							<f:then>
 								<div class="container-fluid">
-									<div class="row">
+									<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-3">
 										<f:for each="{mediaAlbumPagination.paginator.paginatedItems}" as="mediaAsset">
-											<div class="thumb col-xs-6 col-sm-4 col-md-3 col-lg-2">
+											<div class="thumb col">
 												<f:render partial="MediaAsset/Thumb" section="Thumb"
 													arguments="{mediaAlbum:mediaAlbum,mediaAsset:mediaAsset}" />
 											</div>
